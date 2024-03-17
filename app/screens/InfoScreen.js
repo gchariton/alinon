@@ -4,11 +4,11 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import Screen from './Screen';
 import colors from '../config/colors';
 
-function AboutScreen({}) {
+function InfoScreen({}) {
     return (
         <Screen>
             <View style={styles.container}>
-                <Text style={styles.text}>alinon</Text>
+                <Text style={styles.text}>icloud.gr</Text>
             </View>
             <View style={styles.container}>
                 <Image
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AboutScreen;
+export default InfoScreen;
