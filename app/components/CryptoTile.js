@@ -1,72 +1,89 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
 
+import constants from '../config/constants';
 import colors from '../config/colors';
 
-export default function CryptoTile({ cryptosymbol }) {
+const CryptoTile = ({ cryptosymbol }) => {
     const [coinData, setCoinData] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(
-                    'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
-                    {
-                        headers: {
-                            'X-CMC_PRO_API_KEY':
-                                'b0a5949f-b36c-479d-8cae-633c92223b01',
-                        },
-                    }
-                );
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await axios.get(constants.CRYPTO.API_URL, {
+                headers: {
+                    'X-CMC_PRO_API_KEY': constants.CRYPTO.API_KEY,
+                },
+            });
 
-                const json = response.data;
-                setCoinData(
-                    json.data.find((item) => item.symbol === cryptosymbol)
+            const { data } = response.data;
+            const selectedCoin = data.find(
+                (item) => item.symbol === cryptosymbol
+            );
+
+            if (!selectedCoin) {
+                return (
+                    <View style={styles.container}>
+                        <Text style={styles.error}> COIN NOT FOUND</Text>
+                    </View>
                 );
-            } catch (error) {
-                console.log(error);
-                throw error;
             }
-        };
-
-        fetchData();
+            setCoinData(selectedCoin);
+        } catch (error) {
+            console.log(error);
+            // Handle error
+        }
     }, [cryptosymbol]);
+
+    useEffect(() => {
+        fetchData();
+
+        // Set up interval to fetch data every 61 seconds
+        const interval = setInterval(() => {
+            fetchData();
+        }, 61000);
+
+        return () => clearInterval(interval);
+    }, [fetchData]);
 
     return (
         <View style={styles.container}>
             {coinData && (
                 <>
-                    <View>
-                        <Text style={styles.coinsymbol}>{coinData.symbol}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.coinprice}>
-                            ${coinData.quote.USD.price}
-                        </Text>
-                    </View>
+                    <Text style={styles.coinsymbol}>{coinData.symbol}</Text>
+                    <Text style={styles.coinprice}>
+                        ${Number(coinData.quote.USD.price).toFixed(2)}
+                    </Text>
                 </>
             )}
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
+        borderBottomColor: colors.white,
+        borderBottomWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        margin: 5,
         padding: 5,
         width: '100%',
     },
     coinprice: {
         fontFamily: 'monospace',
         fontSize: 20,
-        color: colors.green,
+        color: colors.yellow,
     },
     coinsymbol: {
         fontFamily: 'monospace',
         fontSize: 20,
         color: colors.blue,
     },
+    error: {
+        fontFamily: 'monospace',
+        fontSize: 20,
+        color: colors.red,
+    },
 });
+
+export default CryptoTile;

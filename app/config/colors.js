@@ -8,4 +8,5 @@ export default {
     red: '#b22222',
     green: '#9eb579',
     blue: '#5cb8ff',
+    yellow: '#ffd700',
 };
