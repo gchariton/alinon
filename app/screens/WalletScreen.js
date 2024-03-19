@@ -1,14 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Screen from './Screen';
 
+import CryptoTile from '../components/CryptoTile';
 import colors from '../config/colors';
 
 function WalletScreen({}) {
     return (
         <Screen>
             <View style={styles.container}>
-                <Text style={styles.text}>wallet</Text>
+                <CryptoTile cryptosymbol={'BTC'} />
             </View>
         </Screen>
     );
