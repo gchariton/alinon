@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
+import TextHyperlink from '../components/TextHyperlink';
 import Screen from './Screen';
 import colors from '../config/colors';
 
@@ -8,7 +9,7 @@ function InfoScreen({}) {
     return (
         <Screen>
             <View style={styles.container}>
-                <Text style={styles.text}>icloud.gr</Text>
+                <TextHyperlink url='https://icloud.gr' text='icloud.gr' />
             </View>
             <View style={styles.container}>
                 <Image

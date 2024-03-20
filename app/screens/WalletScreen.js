@@ -13,10 +13,15 @@ function WalletScreen({}) {
                 <CryptoTile cryptosymbol={'BTC'} />
                 <CryptoTile cryptosymbol={'ETH'} />
                 <CryptoTile cryptosymbol={'SOL'} />
+                <CryptoTile cryptosymbol={'ADA'} />
+                <CryptoTile cryptosymbol={'XRP'} />
+                <CryptoTile cryptosymbol={'DOT'} />
+                <CryptoTile cryptosymbol={'XLM'} />
                 <CryptoTile cryptosymbol={'WLD'} />
                 <TextInput
                     style={styles.input}
                     placeholder='SYMBOL'
+                    placeholderTextColor={'gray'}
                     value={input}
                     onChangeText={setInput}
                 />
@@ -36,7 +41,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: colors.secondary,
         borderWidth: 1,
-        borderColor: colors.secondary,
+        borderColor: colors.white,
         borderRadius: 5,
         color: colors.blue,
         fontFamily: 'monospace',

@@ -1,52 +1,30 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import axios from 'axios';
 
-import constants from '../config/constants';
+import fetchCrypto from '../functions/fetchCrypto';
+
 import colors from '../config/colors';
 
 const CryptoTile = ({ cryptosymbol }) => {
     const [coinData, setCoinData] = useState(null);
 
-    const fetchData = useCallback(async () => {
-        try {
-            const response = await axios.get(constants.CRYPTO.API_URL, {
-                headers: {
-                    'X-CMC_PRO_API_KEY': constants.CRYPTO.API_KEY,
-                },
-            });
-
-            const { data } = response.data;
-            const selectedCoin = data.find(
-                (item) => item.symbol === cryptosymbol
-            );
-
-            if (!selectedCoin) {
-                return (
-                    <View style={styles.container}>
-                        <Text style={styles.error}> COIN NOT FOUND</Text>
-                    </View>
-                );
-            }
-            setCoinData(selectedCoin);
-        } catch (error) {
-            console.log(error);
-            // Handle error
-        }
+    const fetchCoinData = useCallback(() => {
+        fetchCrypto(cryptosymbol, setCoinData);
     }, [cryptosymbol]);
 
     useEffect(() => {
-        fetchData();
+        fetchCoinData();
 
         // Set up interval to fetch data every 61 seconds
+        // due to API restrictions
         const interval = setInterval(() => {
-            fetchData();
+            fetchCoinData();
         }, 61000);
 
         return () => clearInterval(interval);
-    }, [fetchData]);
+    }, [fetchCrypto]);
 
-    return (
+    return coinData ? (
         <View style={styles.container}>
             {coinData && (
                 <>
@@ -56,6 +34,10 @@ const CryptoTile = ({ cryptosymbol }) => {
                     </Text>
                 </>
             )}
+        </View>
+    ) : (
+        <View style={styles.container}>
+            <Text style={styles.error}>...</Text>
         </View>
     );
 };
@@ -77,6 +59,7 @@ const styles = StyleSheet.create({
     coinsymbol: {
         fontFamily: 'monospace',
         fontSize: 20,
+        fontWeight: 'bold',
         color: colors.blue,
     },
     error: {

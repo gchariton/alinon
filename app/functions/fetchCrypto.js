@@ -1,22 +1,22 @@
 import axios from 'axios';
+import constants from '../config/constants';
 
-export default async function fetchCrypto(coin) {
+const fetchCrypto = async (cryptosymbol, setCoinData) => {
     try {
-        const response = await axios.get(
-            'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
-            {
-                headers: {
-                    'X-CMC_PRO_API_KEY': 'b0a5949f-b36c-479d-8cae-633c92223b01',
-                },
-            }
-        );
+        const response = await axios.get(constants.CRYPTO.API_URL, {
+            headers: {
+                'X-CMC_PRO_API_KEY': constants.CRYPTO.API_KEY,
+            },
+        });
 
-        const json = response.data;
-        console.log(json);
-        const coinData = json.data.find((item) => item.symbol === coin);
-        return coinData;
+        const { data } = response.data;
+        const selectedCoin = data.find((item) => item.symbol === cryptosymbol);
+
+        setCoinData(selectedCoin);
     } catch (error) {
         console.log(error);
-        throw error;
+        // Handle error
     }
-}
+};
+
+export default fetchCrypto;
