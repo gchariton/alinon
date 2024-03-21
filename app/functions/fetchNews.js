@@ -14,6 +14,7 @@ export const fetchNews = async (setSortedFeed, setRefreshing) => {
         const results = await Promise.all(fetchRequests);
         const mergedFeed = results
             .flat()
+            .slice(0, 50)
             .sort(
                 (a, b) =>
                     new Date(b.published).getTime() -

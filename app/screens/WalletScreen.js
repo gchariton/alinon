@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Screen from './Screen';
 
 import CryptoTile from '../components/CryptoTile';
@@ -9,6 +9,7 @@ function WalletScreen({}) {
     const [input, setInput] = useState('');
     return (
         <Screen>
+            <Text style={styles.label}>auto updates every 60 sec</Text>
             <View style={styles.container}>
                 <CryptoTile cryptosymbol={'BTC'} />
                 <CryptoTile cryptosymbol={'ETH'} />
@@ -18,6 +19,7 @@ function WalletScreen({}) {
                 <CryptoTile cryptosymbol={'DOT'} />
                 <CryptoTile cryptosymbol={'XLM'} />
                 <CryptoTile cryptosymbol={'WLD'} />
+                <Text style={styles.label}>type your crypto symbol</Text>
                 <TextInput
                     style={styles.input}
                     placeholder='SYMBOL'
@@ -47,9 +49,14 @@ const styles = StyleSheet.create({
         fontFamily: 'monospace',
         fontSize: 20,
         marginBottom: 25,
-        marginTop: 25,
         padding: 5,
         width: '100%',
+    },
+    label: {
+        color: 'gray',
+        fontFamily: 'monospace',
+        marginBottom: 25,
+        marginTop: 25,
     },
     text: {
         fontFamily: 'monospace',

@@ -15,11 +15,11 @@ const CryptoTile = ({ cryptosymbol }) => {
     useEffect(() => {
         fetchCoinData();
 
-        // Set up interval to fetch data every 61 seconds
+        // Set up interval to fetch data every 60 seconds
         // due to API restrictions
         const interval = setInterval(() => {
             fetchCoinData();
-        }, 61000);
+        }, 60000);
 
         return () => clearInterval(interval);
     }, [fetchCrypto]);
