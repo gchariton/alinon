@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
 
 import Screen from './Screen';
 import NewsTile from '../components/NewsTile';

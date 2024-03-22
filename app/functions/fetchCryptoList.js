@@ -1,8 +1,9 @@
 import axios from 'axios';
 import constants from '../config/constants';
 
-const fetchCrypto = async (cryptosymbol, setCoinData) => {
+export const fetchCryptoList = async (setCoinData, setRefreshing) => {
     try {
+        setRefreshing(true);
         const response = await axios.get(constants.CRYPTO.API_URL, {
             headers: {
                 'X-CMC_PRO_API_KEY': constants.CRYPTO.API_KEY,
@@ -10,13 +11,10 @@ const fetchCrypto = async (cryptosymbol, setCoinData) => {
         });
 
         const { data } = response.data;
-        const selectedCoin = data.find((item) => item.symbol === cryptosymbol);
-
-        setCoinData(selectedCoin);
-    } catch (error) {
-        console.log(error);
-        // Handle error
+        setCoinData(data);
+    } catch (err) {
+        console.error('Error fetching crypto list:', err);
+    } finally {
+        setRefreshing(false);
     }
 };
-
-export default fetchCrypto;

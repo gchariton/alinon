@@ -3,10 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import WalletScreen from '../screens/WalletScreen';
 import HomeScreen from '../screens/HomeScreen';
-import InfoScreen from '../screens/InfoScreen';
 import NewsScreen from '../screens/NewsScreen';
+import CryptoScreen from '../screens/CryptoScreen';
+import InfoScreen from '../screens/InfoScreen';
 
 import colors from '../config/colors';
 
@@ -22,12 +22,14 @@ export default function BottomBarNav() {
                     tabBarShowLabel: false,
                     tabBarStyle: {
                         height: 50,
-                        borderTopColor: colors.secondary,
-                        borderTopWidth: 0,
+                        borderTopColor: colors.blue,
+                        borderTopWidth: 1,
                         backgroundColor: colors.primary,
                     },
                     headerStyle: {
                         backgroundColor: colors.secondary,
+                        borderBottomColor: colors.blue,
+                        borderBottomWidth: 1,
                     },
                     headerTintColor: colors.white,
                     headerTitleStyle: {
@@ -63,12 +65,12 @@ export default function BottomBarNav() {
                     }}
                 />
                 <Tab.Screen
-                    name='Wallet'
-                    component={WalletScreen}
+                    name='Crypto'
+                    component={CryptoScreen}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons
-                                name='wallet'
+                                name='bitcoin'
                                 color={color}
                                 size={size}
                             />

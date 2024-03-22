@@ -1,46 +1,24 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-import fetchCrypto from '../functions/fetchCrypto';
 
 import colors from '../config/colors';
 
-const CryptoTile = ({ cryptosymbol }) => {
-    const [coinData, setCoinData] = useState(null);
-
-    const fetchCoinData = useCallback(() => {
-        fetchCrypto(cryptosymbol, setCoinData);
-    }, [cryptosymbol]);
-
-    useEffect(() => {
-        fetchCoinData();
-
-        // Set up interval to fetch data every 60 seconds
-        // due to API restrictions
-        const interval = setInterval(() => {
-            fetchCoinData();
-        }, 60000);
-
-        return () => clearInterval(interval);
-    }, [fetchCrypto]);
-
-    return coinData ? (
+const CryptoTile = React.memo(({ cryptoitem }) => {
+    return (
         <View style={styles.container}>
-            {coinData && (
+            {cryptoitem && (
                 <>
-                    <Text style={styles.coinsymbol}>{coinData.symbol}</Text>
+                    <Text style={styles.coinsymbol}>
+                        {cryptoitem.name} ({cryptoitem.symbol})
+                    </Text>
                     <Text style={styles.coinprice}>
-                        ${Number(coinData.quote.USD.price).toFixed(2)}
+                        ${Number(cryptoitem.quote.USD.price).toFixed(5)}
                     </Text>
                 </>
             )}
         </View>
-    ) : (
-        <View style={styles.container}>
-            <Text style={styles.error}>...</Text>
-        </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -48,17 +26,19 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 5,
+        marginTop: 5,
+        marginBottom: 5,
+        padding: 10,
         width: '100%',
     },
     coinprice: {
         fontFamily: 'monospace',
-        fontSize: 20,
+        fontSize: 16,
         color: colors.yellow,
     },
     coinsymbol: {
         fontFamily: 'monospace',
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
         color: colors.blue,
     },
