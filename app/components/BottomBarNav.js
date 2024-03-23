@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
 import CryptoScreen from '../screens/CryptoScreen';
-import InfoScreen from '../screens/InfoScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 import colors from '../config/colors';
 
@@ -78,12 +78,12 @@ export default function BottomBarNav() {
                     }}
                 />
                 <Tab.Screen
-                    name='Info'
-                    component={InfoScreen}
+                    name='Settings'
+                    component={SettingsScreen}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons
-                                name='information'
+                                name='tools'
                                 color={color}
                                 size={size}
                             />

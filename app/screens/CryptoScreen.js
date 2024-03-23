@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import {
     FlatList,
     RefreshControl,
-    ScrollView,
     StyleSheet,
+    Text,
     TextInput,
     View,
 } from 'react-native';
@@ -17,6 +17,7 @@ function CryptoScreen({}) {
     const [cryptoList, setCryptoList] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [datetime, setDatetime] = useState(new Date());
 
     useEffect(() => {
         fetchCryptoList(setCryptoList, setRefreshing);
@@ -25,6 +26,7 @@ function CryptoScreen({}) {
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         fetchCryptoList(setCryptoList, setRefreshing);
+        setDatetime(new Date());
     }, []);
 
     const renderCryptoTile = ({ item }) => (
@@ -48,6 +50,9 @@ function CryptoScreen({}) {
                     value={searchQuery}
                 />
             </View>
+            <Text style={styles.datetime}>
+                {datetime.toLocaleString('el-GR', { hour12: false })}
+            </Text>
             <FlatList
                 style={styles.flatlist}
                 data={filteredCryptoList}
@@ -68,6 +73,11 @@ function CryptoScreen({}) {
 }
 
 const styles = StyleSheet.create({
+    datetime: {
+        color: 'gray',
+        fontFamily: 'monospace',
+        padding: 10,
+    },
     flatlist: {
         margin: 5,
         padding: 5,
