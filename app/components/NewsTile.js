@@ -6,11 +6,12 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 
 import colors from '../config/colors';
 import getDomain from '../functions/getDomain';
 
-function NewsTile({ feed, index }) {
+function NewsTile({ feed, index, renderRightActions }) {
     const publishedDate = new Date(feed.published);
     const formattedDate = publishedDate.toLocaleString('el-GR', {
         hour12: false,
@@ -18,19 +19,23 @@ function NewsTile({ feed, index }) {
     });
 
     return (
-        <TouchableOpacity
-            style={styles.container}
-            key={index}
-            onPress={() => Linking.openURL(String(feed.id))}
-        >
-            <Text style={styles.title}>{String(feed.title)}</Text>
-            <View style={styles.meta}>
-                <Text style={styles.pubdate}>
-                    {formattedDate.substring(0, 16)}
-                </Text>
-                <Text style={styles.source}>{String(getDomain(feed.id))}</Text>
-            </View>
-        </TouchableOpacity>
+        <Swipeable renderRightActions={renderRightActions}>
+            <TouchableOpacity
+                style={styles.container}
+                key={index}
+                onPress={() => Linking.openURL(String(feed.id))}
+            >
+                <Text style={styles.title}>{String(feed.title)}</Text>
+                <View style={styles.meta}>
+                    <Text style={styles.pubdate}>
+                        {formattedDate.substring(0, 16)}
+                    </Text>
+                    <Text style={styles.source}>
+                        {String(getDomain(feed.id))}
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        </Swipeable>
     );
 }
 
