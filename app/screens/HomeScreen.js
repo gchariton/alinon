@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import { Animated, StyleSheet, Text } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
 import Screen from './Screen';
+import colors from '../config/colors';
 
 const logoImage = require('../assets/logo.png');
 
@@ -27,6 +28,7 @@ const HomeScreen = ({ navigation }) => {
                 style={[styles.logo, { transform: [{ translateY }] }]}
                 source={logoImage}
             />
+            <Text style={styles.text}>Welcome George</Text>
         </Screen>
     );
 };
@@ -35,6 +37,11 @@ const styles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
+    },
+    text: {
+        color: colors.white,
+        fontFamily: 'monospace',
+        margin: 5,
     },
 });
 
