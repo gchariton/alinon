@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { Animated, StyleSheet, Text } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
+import TextHyperlink from '../components/TextHyperlink';
+
 import Screen from './Screen';
 import colors from '../config/colors';
 
@@ -29,6 +31,7 @@ const HomeScreen = ({ navigation }) => {
                 source={logoImage}
             />
             <Text style={styles.text}>Welcome George</Text>
+            <TextHyperlink url='http://icloud.gr' text='icloud.gr' />
         </Screen>
     );
 };
