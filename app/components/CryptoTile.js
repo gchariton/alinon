@@ -1,16 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+import TextHypelink from '../components/TextHyperlink';
+
 import colors from '../config/colors';
+import constants from '../config/constants';
 
 const CryptoTile = React.memo(({ cryptoitem }) => {
+    const lowerCaseName = cryptoitem.name.toLowerCase().split(' ')[0];
     return (
         <View style={styles.container}>
             {cryptoitem && (
                 <>
-                    <Text style={styles.coinsymbol}>
-                        {cryptoitem.name} ({cryptoitem.symbol})
-                    </Text>
+                    <TextHypelink
+                        style={styles.coinsymbol}
+                        text={`${cryptoitem.name} (${cryptoitem.symbol})`}
+                        url={`${constants.CRYPTO.COININFO}${lowerCaseName}`}
+                    />
+
                     <Text style={styles.coinprice}>
                         ${Number(cryptoitem.quote.USD.price).toFixed(5)}
                     </Text>
@@ -32,20 +39,16 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     coinprice: {
-        fontFamily: 'monospace',
-        fontSize: 16,
         color: colors.yellow,
-    },
-    coinsymbol: {
         fontFamily: 'monospace',
         fontSize: 16,
         fontWeight: 'bold',
-        color: colors.blue,
     },
-    error: {
+    coinsymbol: {
+        color: colors.blue,
         fontFamily: 'monospace',
-        fontSize: 20,
-        color: colors.red,
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });
 

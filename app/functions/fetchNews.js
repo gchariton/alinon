@@ -8,13 +8,12 @@ export const fetchNews = async (setSortedFeed, setRefreshing) => {
         const fetchRequests = feed.news.map(async (url) => {
             const response = await axios.get(url);
             const parsed = await parse(response.data);
-            return parsed.items.slice(0, 30);
+            return parsed.items.slice(0, 25);
         });
 
         const results = await Promise.all(fetchRequests);
         const mergedFeed = results
             .flat()
-            .slice(0, 100)
             .sort(
                 (a, b) =>
                     new Date(b.published).getTime() -
