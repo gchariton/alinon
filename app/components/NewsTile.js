@@ -61,11 +61,12 @@ function NewsTile({ feed, renderRightActions }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.secondary,
+        borderColor: 'gray',
+        borderWidth: 1,
         borderRadius: 10,
-        elevation: 3,
-        margin: 5,
+        marginBottom: 10,
+        marginTop: 10,
         padding: 10,
-        shadowColor: colors.white,
     },
     meta: {
         flexDirection: 'row',

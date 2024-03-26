@@ -6,7 +6,6 @@ const news = [
     'https://www.capital.gr/api/tags/all',
     'https://www.ot.gr/feed/',
     'https://www.sport24.gr/newsfeed.xml?profile=public',
-    'https://apnews.com/index.rss',
     'https://e-thessalia.gr/feed/',
 ];
 
