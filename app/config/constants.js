@@ -6,11 +6,16 @@ CRYPTO = {
     COININFO: 'https://www.coingecko.com/en/coins/',
 };
 
+MISSION = {
+    API_URL: 'https://www.boredapi.com/api/activity',
+};
+
 WEATHER = {
     API_URL: 'https://api.open-meteo.com/v1/forecast?',
 };
 
 export default {
     CRYPTO,
+    MISSION,
     WEATHER,
 };

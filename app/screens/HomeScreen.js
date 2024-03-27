@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -7,12 +7,19 @@ import Weather from '../components/Weather';
 
 import Screen from './Screen';
 import colors from '../config/colors';
+import fetchMission from '../functions/fetchMission';
 
 const logoImage = require('../assets/logo.png');
 
 const HomeScreen = ({ navigation }) => {
     const translateY = useRef(new Animated.Value(-500)).current;
     const isFocused = useIsFocused();
+    const [mission, setMission] = useState({});
+
+    const fetchMissionData = useCallback(async () => {
+        const data = await fetchMission();
+        setMission(data);
+    }, []);
 
     useEffect(() => {
         if (isFocused) {
@@ -23,6 +30,7 @@ const HomeScreen = ({ navigation }) => {
                 useNativeDriver: true,
             }).start();
         }
+        fetchMissionData();
     }, [isFocused]);
 
     return (
@@ -37,6 +45,11 @@ const HomeScreen = ({ navigation }) => {
                     url='http://icloud.gr'
                     text='Hello George'
                 />
+                {mission && (
+                    <Text style={[styles.text, { color: colors.red }]}>
+                        {mission.activity}
+                    </Text>
+                )}
             </View>
             <View style={styles.containerweather}>
                 <Weather />

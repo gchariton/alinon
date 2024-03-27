@@ -9,6 +9,7 @@ const news = [
     'https://feeds.feedburner.com/moneyreview/ZJqj',
     'https://www.sport24.gr/newsfeed.xml?profile=public',
     'https://e-thessalia.gr/feed',
+    'https://9to5google.com/feed/',
 ];
 
 export default {
