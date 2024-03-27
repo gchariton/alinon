@@ -7,7 +7,7 @@ CRYPTO = {
 };
 
 WEATHER = {
-    API_KEY: '66f47f03902ff583a266fa7b29ef0c92',
+    API_URL: 'https://api.open-meteo.com/v1/forecast?',
 };
 
 export default {

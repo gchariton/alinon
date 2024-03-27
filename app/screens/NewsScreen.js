@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
     RefreshControl,
     ScrollView,
@@ -17,6 +17,8 @@ import { fetchNews } from '../functions/fetchNews';
 function NewsScreen() {
     const [sortedFeed, setSortedFeed] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+
+    const scrollRef = useRef();
 
     useEffect(() => {
         fetchNews(setSortedFeed, setRefreshing);
@@ -37,9 +39,14 @@ function NewsScreen() {
         }
     };
 
+    const onPressScrollToTop = () => {
+        scrollRef.current?.scrollTo({ y: 0, animated: true });
+    };
+
     return (
         <Screen>
             <ScrollView
+                ref={scrollRef}
                 style={styles.container}
                 refreshControl={
                     <RefreshControl
@@ -71,6 +78,15 @@ function NewsScreen() {
                     />
                 ))}
             </ScrollView>
+            <View style={styles.upbutton}>
+                <TouchableOpacity onPress={onPressScrollToTop}>
+                    <MaterialCommunityIcons
+                        name={'arrow-up-circle'}
+                        color={colors.blue}
+                        size={50}
+                    />
+                </TouchableOpacity>
+            </View>
         </Screen>
     );
 }
@@ -85,6 +101,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colors.primary,
         width: 80,
+    },
+    upbutton: {
+        bottom: 20,
+        elevation: 5,
+        right: 20,
+        position: 'absolute',
     },
 });
 

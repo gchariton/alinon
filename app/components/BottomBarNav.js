@@ -53,7 +53,7 @@ const BottomBarNav = () => (
                         <TabIcon name='home' color={color} size={size} />
                     ),
                     ...screenOptions,
-                    headerLeft: ({ color, size }) => {
+                    headerLeft: () => {
                         return (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon
@@ -74,7 +74,7 @@ const BottomBarNav = () => (
                         <TabIcon name='newspaper' color={color} size={size} />
                     ),
                     ...screenOptions,
-                    headerLeft: ({ color, size }) => {
+                    headerLeft: () => {
                         return (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon
@@ -95,7 +95,7 @@ const BottomBarNav = () => (
                         <TabIcon name='bitcoin' color={color} size={size} />
                     ),
                     ...screenOptions,
-                    headerLeft: ({ color, size }) => {
+                    headerLeft: () => {
                         return (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon
@@ -116,7 +116,7 @@ const BottomBarNav = () => (
                         <TabIcon name='tools' color={color} size={size} />
                     ),
                     ...screenOptions,
-                    headerLeft: ({ color, size }) => {
+                    headerLeft: () => {
                         return (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon

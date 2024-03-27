@@ -22,7 +22,8 @@
     "react-native-gesture-handler": "~2.14.0",
     "react-native-reanimated": "^3.8.1",
     "react-native-rss-parser": "^1.5.1",
-    "rss-parser": "^3.13.0"
+    "rss-parser": "^3.13.0",
+    "expo-location": "~16.5.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -32,11 +32,10 @@ const HomeScreen = ({ navigation }) => {
                     style={[styles.logo, { transform: [{ translateY }] }]}
                     source={logoImage}
                 />
-                <Text style={styles.text}>Hello George</Text>
                 <TextHyperlink
                     style={styles.text}
                     url='http://icloud.gr'
-                    text='icloud.gr'
+                    text='Hello George'
                 />
             </View>
             <View style={styles.containerweather}>
