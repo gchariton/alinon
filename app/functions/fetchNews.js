@@ -10,7 +10,6 @@ export const fetchNews = async (setSortedFeed, setRefreshing) => {
             const parsed = await parse(response.data);
             return parsed.items.slice(0, 25);
         });
-
         const results = await Promise.all(fetchRequests);
         const mergedFeed = results
             .flat()
