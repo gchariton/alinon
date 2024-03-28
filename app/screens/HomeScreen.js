@@ -29,8 +29,8 @@ const HomeScreen = ({ navigation }) => {
                 duration: 3000,
                 useNativeDriver: true,
             }).start();
+            fetchMissionData();
         }
-        fetchMissionData();
     }, [isFocused]);
 
     return (
@@ -46,8 +46,8 @@ const HomeScreen = ({ navigation }) => {
                     text='Hello George'
                 />
                 {mission && (
-                    <Text style={[styles.text, { color: colors.red }]}>
-                        {mission.activity}
+                    <Text style={styles.text}>
+                        Let's {String(mission.activity).toLowerCase()}!
                     </Text>
                 )}
             </View>

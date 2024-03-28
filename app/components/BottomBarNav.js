@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
 import CryptoScreen from '../screens/CryptoScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import SettingsNav from './SettingsNav';
 
 import colors from '../config/colors';
 
@@ -110,7 +110,7 @@ const BottomBarNav = () => (
             />
             <Tab.Screen
                 name='Settings'
-                component={SettingsScreen}
+                component={SettingsNav}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <TabIcon name='tools' color={color} size={size} />

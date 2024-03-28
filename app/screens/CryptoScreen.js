@@ -44,7 +44,7 @@ function CryptoScreen({}) {
             <View style={styles.searchbox}>
                 <TextInput
                     style={styles.input}
-                    placeholder='Search coin...'
+                    placeholder='search coin'
                     placeholderTextColor={'gray'}
                     onChangeText={setSearchQuery}
                     value={searchQuery}
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
         fontFamily: 'monospace',
         fontWeight: 'bold',
         fontSize: 20,
+        textAlign: 'center',
     },
 
     searchbox: {

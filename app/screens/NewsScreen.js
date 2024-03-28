@@ -83,7 +83,7 @@ function NewsScreen() {
                     <MaterialCommunityIcons
                         name={'arrow-up-circle'}
                         color={colors.blue}
-                        size={50}
+                        size={58}
                     />
                 </TouchableOpacity>
             </View>
@@ -103,10 +103,16 @@ const styles = StyleSheet.create({
         width: 80,
     },
     upbutton: {
+        alignItems: 'center',
+        backgroundColor: colors.primary,
+        borderRadius: 29,
         bottom: 20,
         elevation: 5,
-        right: 20,
+        height: 58,
+        justifyContent: 'center',
         position: 'absolute',
+        right: 20,
+        width: 58,
     },
 });
 

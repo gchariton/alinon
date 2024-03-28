@@ -111,7 +111,7 @@ const Weather = () => {
                         <MaterialCommunityIcons
                             name={'google-maps'}
                             color={colors.green}
-                            size={100}
+                            size={90}
                         />
                     </TouchableOpacity>
                     {currentAddress && (
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         padding: 10,
-        width: '90%',
+        width: '100%',
     },
     weatherInfoContainer: {
         margin: 5,
