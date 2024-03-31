@@ -3,7 +3,11 @@ import axios from 'axios';
 
 import feed from '../config/feed';
 
-export const fetchNews = async (setSortedFeed, setRefreshing) => {
+export const fetchNews = async (
+    setSortedFeed,
+    setRefreshing,
+    setIsProgressHidden
+) => {
     try {
         const fetchRequests = feed.news.map(async (url) => {
             const response = await axios.get(url);

@@ -14,7 +14,7 @@ const logoImage = require('../assets/logo.png');
 const HomeScreen = ({ navigation }) => {
     const translateY = useRef(new Animated.Value(-500)).current;
     const isFocused = useIsFocused();
-    const [mission, setMission] = useState({});
+    const [mission, setMission] = useState(String('...'));
 
     const fetchMissionData = useCallback(async () => {
         const data = await fetchMission();

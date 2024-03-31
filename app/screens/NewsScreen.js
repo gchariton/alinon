@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import * as Progress from 'react-native-progress';
+
 import Screen from './Screen';
 import NewsTile from '../components/NewsTile';
 import colors from '../config/colors';
@@ -17,16 +19,26 @@ import { fetchNews } from '../functions/fetchNews';
 function NewsScreen() {
     const [sortedFeed, setSortedFeed] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [isProgressHidden, setIsProgressHidden] = useState(false);
 
     const scrollRef = useRef();
 
     useEffect(() => {
-        fetchNews(setSortedFeed, setRefreshing);
+        fetchData();
     }, []);
+
+    const fetchData = async () => {
+        setIsProgressHidden(false); // Show progress circle while fetching data
+        try {
+            await fetchNews(setSortedFeed, setRefreshing);
+        } finally {
+            setIsProgressHidden(true); // Hide progress circle when fetching is done
+        }
+    };
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        fetchNews(setSortedFeed, setRefreshing);
+        fetchData();
     }, []);
 
     const handleShare = async (feed) => {
@@ -45,6 +57,15 @@ function NewsScreen() {
 
     return (
         <Screen>
+            {!isProgressHidden && (
+                <View style={styles.progress}>
+                    <Progress.CircleSnail
+                        color={[colors.red, colors.green, colors.blue]}
+                        hidesWhenStopped={!isProgressHidden}
+                        size={100}
+                    />
+                </View>
+            )}
             <ScrollView
                 ref={scrollRef}
                 style={styles.container}
@@ -95,6 +116,15 @@ const styles = StyleSheet.create({
     container: {
         margin: 5,
         padding: 5,
+        position: 'relative',
+        zIndex: 2,
+    },
+    progress: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 20,
+        position: 'absolute',
+        zIndex: 1,
     },
     swipebox: {
         justifyContent: 'center',
@@ -107,7 +137,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primary,
         borderRadius: 29,
         bottom: 20,
-        elevation: 5,
         height: 58,
         justifyContent: 'center',
         position: 'absolute',
