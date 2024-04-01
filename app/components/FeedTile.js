@@ -21,15 +21,16 @@ function FeedTile({ source }) {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        padding: 5,
     },
     icon: {
+        alignItems: 'center',
+        justifyContent: 'center',
         padding: 5,
     },
     source: {
+        alignItems: 'center',
+        justifyContent: 'center',
         padding: 5,
     },
     text: {
