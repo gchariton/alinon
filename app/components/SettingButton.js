@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 10,
-        width: '80%',
+        width: '100%',
     },
     iconbox: {
         alignItems: 'center',

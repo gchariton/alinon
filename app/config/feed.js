@@ -10,6 +10,7 @@ const news = [
     'https://www.newmoney.gr/feed',
     'https://www.sport24.gr/newsfeed.xml?profile=public',
     'https://www.e-thessalia.gr/feed',
+    'https://www.popsci.com/feed',
 ];
 
 export default {

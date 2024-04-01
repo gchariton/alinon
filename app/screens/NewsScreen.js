@@ -62,7 +62,7 @@ function NewsScreen() {
                     <Progress.CircleSnail
                         color={[colors.red, colors.green, colors.blue]}
                         hidesWhenStopped={!isProgressHidden}
-                        size={100}
+                        size={50}
                     />
                 </View>
             )}
