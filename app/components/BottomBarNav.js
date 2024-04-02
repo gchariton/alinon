@@ -10,6 +10,7 @@ import CryptoScreen from '../screens/CryptoScreen';
 import SettingsNav from './SettingsNav';
 
 import colors from '../config/colors';
+import SoccerScreen from '../screens/SoccerScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -100,6 +101,27 @@ const BottomBarNav = () => (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon
                                     name='bitcoin'
+                                    color={colors.yellow}
+                                    size={24}
+                                />
+                            </View>
+                        );
+                    },
+                }}
+            />
+            <Tab.Screen
+                name='Soccer'
+                component={SoccerScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <TabIcon name='soccer' color={color} size={size} />
+                    ),
+                    ...screenOptions,
+                    headerLeft: () => {
+                        return (
+                            <View style={{ marginLeft: 20 }}>
+                                <TabIcon
+                                    name='soccer'
                                     color={colors.yellow}
                                     size={24}
                                 />

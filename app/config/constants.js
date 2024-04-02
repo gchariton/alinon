@@ -10,6 +10,18 @@ MISSION = {
     API_URL: 'https://www.boredapi.com/api/activity',
 };
 
+SOCCER = {
+    API_URL: 'https://v3.football.api-sports.io/teams?league=197&season=2023',
+
+    OPTIONS: {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'fe1358836efa86e4a36af1a429a16456',
+            'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+        },
+    },
+};
+
 WEATHER = {
     API_URL: 'https://api.open-meteo.com/v1/forecast?',
 };
@@ -17,5 +29,6 @@ WEATHER = {
 export default {
     CRYPTO,
     MISSION,
+    SOCCER,
     WEATHER,
 };

@@ -1,42 +1,40 @@
 {
-  "expo": {
-    "name": "alinon",
-    "slug": "alinon",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./app/assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "gr.icloud.alinon"
-    },
-    "web": {
-      "favicon": "./app/assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "5382a00e-6d78-4852-b000-a6c51663239c"
-      }
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/5382a00e-6d78-4852-b000-a6c51663239c"
+    "expo": {
+        "name": "alinon",
+        "slug": "alinon",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./app/assets/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./app/assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#1b1a19"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./app/assets/adaptive-icon.png",
+                "backgroundColor": "#1b1a19"
+            },
+            "package": "gr.icloud.alinon"
+        },
+        "web": {
+            "favicon": "./app/assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "5382a00e-6d78-4852-b000-a6c51663239c"
+            }
+        },
+        "runtimeVersion": {
+            "policy": "appVersion"
+        },
+        "updates": {
+            "url": "https://u.expo.dev/5382a00e-6d78-4852-b000-a6c51663239c"
+        }
     }
-  }
 }
