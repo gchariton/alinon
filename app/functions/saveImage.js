@@ -2,7 +2,6 @@ import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 
 const saveImage = async (imageUri) => {
-    console.log('imageUri', imageUri);
     try {
         // Download the image to the cache directory
         const downloadResult = await FileSystem.downloadAsync(
@@ -18,13 +17,18 @@ const saveImage = async (imageUri) => {
         const asset = await MediaLibrary.createAssetAsync(downloadResult.uri);
 
         // Prompt user to select where to save the image
-        await MediaLibrary.saveToLibraryAsync(asset);
+        const assetAlbum = await MediaLibrary.getAlbumAsync('YourAlbumName');
+        if (!assetAlbum) {
+            await MediaLibrary.createAlbumAsync('YourAlbumName', asset);
+        } else {
+            await MediaLibrary.addAssetsToAlbumAsync([asset], assetAlbum);
+        }
 
-        // Optionally, you can display a message indicating success
+        // Display a message indicating success
         alert('Image saved successfully!');
     } catch (error) {
         console.error('Error saving image: ', error);
-        // Optionally, you can display an error message
+        // Display an error message
         alert('Error saving image. Please try again.');
     }
 };
