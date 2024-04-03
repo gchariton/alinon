@@ -6,11 +6,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
+import RadioScreen from '../screens/RadioScreen';
 import CryptoScreen from '../screens/CryptoScreen';
+import SoccerScreen from '../screens/SoccerScreen';
+
 import SettingsNav from './SettingsNav';
 
 import colors from '../config/colors';
-import SoccerScreen from '../screens/SoccerScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -80,6 +82,27 @@ const BottomBarNav = () => (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon
                                     name='newspaper'
+                                    color={colors.yellow}
+                                    size={24}
+                                />
+                            </View>
+                        );
+                    },
+                }}
+            />
+            <Tab.Screen
+                name='Radio'
+                component={RadioScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <TabIcon name='radio' color={color} size={size} />
+                    ),
+                    ...screenOptions,
+                    headerLeft: () => {
+                        return (
+                            <View style={{ marginLeft: 20 }}>
+                                <TabIcon
+                                    name='radio'
                                     color={colors.yellow}
                                     size={24}
                                 />

@@ -24,11 +24,10 @@ const saveImage = async (imageUri) => {
             await MediaLibrary.addAssetsToAlbumAsync([asset], assetAlbum);
         }
 
-        // Display a message indicating success
         alert('Image saved successfully!');
     } catch (error) {
         console.error('Error saving image: ', error);
-        // Display an error message
+
         alert('Error saving image. Please try again.');
     }
 };

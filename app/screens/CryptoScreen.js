@@ -18,6 +18,7 @@ function CryptoScreen({}) {
     const [refreshing, setRefreshing] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [datetime, setDatetime] = useState(new Date());
+    const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
         fetchCryptoList(setCryptoList, setRefreshing);
@@ -28,6 +29,14 @@ function CryptoScreen({}) {
         fetchCryptoList(setCryptoList, setRefreshing);
         setDatetime(new Date());
     }, []);
+
+    const onFocus = () => {
+        setIsFocused(true);
+    };
+
+    const onBlur = () => {
+        setIsFocused(false);
+    };
 
     const renderCryptoTile = ({ item }) => (
         <CryptoTile key={item.id} cryptoitem={item} />
@@ -44,9 +53,11 @@ function CryptoScreen({}) {
             <View style={styles.searchbox}>
                 <TextInput
                     style={styles.input}
-                    placeholder='search coin'
+                    placeholder={isFocused ? '' : 'search coin'}
                     placeholderTextColor={'gray'}
+                    onBlur={onBlur}
                     onChangeText={setSearchQuery}
+                    onFocus={onFocus}
                     value={searchQuery}
                 />
             </View>

@@ -29,7 +29,8 @@
     "react-native-rss-parser": "^1.5.1",
     "react-native-svg": "14.1.0",
     "rss-parser": "^3.13.0",
-    "expo-image-picker": "~14.7.1"
+    "expo-image-picker": "~14.7.1",
+    "expo-av": "~13.10.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
