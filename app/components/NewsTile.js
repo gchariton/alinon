@@ -48,9 +48,7 @@ function NewsTile({ feed, renderRightActions }) {
                         </Text>
                     </View>
                     <View>
-                        <Text style={styles.source}>
-                            {String(getDomain(feed.id))}
-                        </Text>
+                        <Text style={styles.source}>{getDomain(feed.id)}</Text>
                     </View>
                 </View>
             </View>

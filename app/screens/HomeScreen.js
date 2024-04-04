@@ -14,11 +14,11 @@ const logoImage = require('../assets/logo.png');
 const HomeScreen = ({ navigation }) => {
     const translateY = useRef(new Animated.Value(-500)).current;
     const isFocused = useIsFocused();
-    const [mission, setMission] = useState(String('...'));
+    const [mission, setMission] = useState('...');
 
     const fetchMissionData = useCallback(async () => {
         const data = await fetchMission();
-        setMission(data);
+        setMission(data.activity);
     }, []);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const HomeScreen = ({ navigation }) => {
                 />
                 {mission && (
                     <Text style={styles.text}>
-                        Let's {String(mission.activity).toLowerCase()}!
+                        Let's {String(mission).toLowerCase()}!
                     </Text>
                 )}
             </View>

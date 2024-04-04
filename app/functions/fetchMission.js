@@ -4,7 +4,6 @@ import constants from '../config/constants';
 const fetchMission = async () => {
     try {
         const response = await axios.get(constants.MISSION.API_URL);
-
         const { data } = response;
         return data;
     } catch (error) {

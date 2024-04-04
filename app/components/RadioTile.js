@@ -54,12 +54,17 @@ const RadioTile = ({ station }) => {
                     style={({ pressed }) => [
                         styles.button,
                         isBuffering && { opacity: 0.5 },
+                        {
+                            backgroundColor: isPlaying
+                                ? colors.red
+                                : colors.blue,
+                        },
                     ]}
                     disabled={isBuffering}
                     onPress={handlePlayPause}
                 >
                     <Text style={styles.title}>
-                        {isPlaying ? 'PAUSE' : 'PLAY'}
+                        {isPlaying ? 'STOP' : 'PLAY'}
                     </Text>
                 </Pressable>
             </View>
@@ -71,11 +76,14 @@ const styles = StyleSheet.create({
     bufferingText: {
         color: colors.green,
         fontFamily: 'monospace',
+        fontSize: 14,
     },
     button: {
         backgroundColor: colors.blue,
         borderTopLeftRadius: 10,
         borderBottomRightRadius: 10,
+        height: 50,
+        justifyContent: 'center',
         overflow: 'hidden',
         width: 100,
     },
@@ -95,8 +103,11 @@ const styles = StyleSheet.create({
     title: {
         color: colors.white,
         fontFamily: 'monospace',
+        fontSize: 18,
         fontWeight: 'bold',
         padding: 5,
+        textShadowColor: colors.secondary,
+        textShadowRadius: 10,
         textAlign: 'center',
     },
 });
