@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import fetchRadio from '../functions/fetchRadio';
+import LottieView from 'lottie-react-native';
+
+import handlePlayPause from '../functions/handlePlayPause';
 import colors from '../config/colors';
 
 const RadioTile = ({ station }) => {
@@ -16,40 +18,31 @@ const RadioTile = ({ station }) => {
         };
     }, []);
 
-    const handlePlayPause = async () => {
-        setIsBuffering(true);
-        if (sound) {
-            const status = await sound.getStatusAsync();
-            if (status.isPlaying) {
-                await sound.pauseAsync();
-                setIsPlaying(false);
-            } else {
-                await sound.unloadAsync();
-                const newSound = await fetchRadio(station.url);
-                setSound(newSound);
-                await newSound.playAsync();
-                setIsPlaying(true);
-            }
-        } else {
-            const newSound = await fetchRadio(station.url);
-            setSound(newSound);
-            await newSound.playAsync();
-            setIsPlaying(true);
-        }
-        setIsBuffering(false);
-    };
-
     return (
         <View style={styles.container}>
-            <View>
-                <Text style={styles.title}>
-                    {station.name}{' '}
+            <View style={{ alignItems: 'flex-start', flex: 2 }}>
+                <View style={[styles.titleBox, { flex: 1, width: '100%' }]}>
+                    <Text style={styles.text}>{station.name}</Text>
+                </View>
+                <View
+                    style={{ flex: 1, justifyContent: 'center', width: '100%' }}
+                >
+                    <LottieView
+                        source={require('../json/dotsLoadingLottie.json')}
+                        autoPlay={true}
+                        loop
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: 'gray',
+                        }}
+                    />
                     {isBuffering && (
                         <Text style={styles.bufferingText}>buffering...</Text>
                     )}
-                </Text>
+                </View>
             </View>
-            <View>
+            <View style={{ alignItems: 'flex-end', flex: 1 }}>
                 <Pressable
                     style={({ pressed }) => [
                         styles.button,
@@ -61,9 +54,17 @@ const RadioTile = ({ station }) => {
                         },
                     ]}
                     disabled={isBuffering}
-                    onPress={handlePlayPause}
+                    onPress={() =>
+                        handlePlayPause(
+                            sound,
+                            setSound,
+                            setIsPlaying,
+                            setIsBuffering,
+                            station
+                        )
+                    }
                 >
-                    <Text style={styles.title}>
+                    <Text style={styles.text}>
                         {isPlaying ? 'STOP' : 'PLAY'}
                     </Text>
                 </Pressable>
@@ -74,15 +75,15 @@ const RadioTile = ({ station }) => {
 
 const styles = StyleSheet.create({
     bufferingText: {
-        color: colors.green,
+        color: colors.yellow,
         fontFamily: 'monospace',
-        fontSize: 14,
+        padding: 5,
     },
     button: {
         backgroundColor: colors.blue,
         borderTopLeftRadius: 10,
         borderBottomRightRadius: 10,
-        height: 50,
+        height: '100%',
         justifyContent: 'center',
         overflow: 'hidden',
         width: 100,
@@ -95,19 +96,26 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10,
         borderWidth: 1,
         flexDirection: 'row',
+        height: 90,
         justifyContent: 'space-between',
-        marginBottom: 20,
+        marginBottom: 15,
         padding: 10,
-        width: '90%',
+        width: '100%',
     },
-    title: {
+    titleBox: {
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        borderBottomColor: 'gray',
+        borderBottomWidth: 1,
+    },
+    text: {
         color: colors.white,
         fontFamily: 'monospace',
         fontSize: 18,
         fontWeight: 'bold',
         padding: 5,
         textShadowColor: colors.secondary,
-        textShadowRadius: 10,
+        textShadowRadius: 5,
         textAlign: 'center',
     },
 });

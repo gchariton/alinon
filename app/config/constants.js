@@ -10,6 +10,17 @@ MISSION = {
     API_URL: 'https://www.boredapi.com/api/activity',
 };
 
+const RADIOSTATIONS = [
+    { name: 'ΣΚΑΪ', url: 'http://netradio.live24.gr:80/skai1003' },
+    { name: 'ΠΑΡΑΠΟΛΙΤΙΚΑ', url: 'http://netradio.live24.gr/athinaradio' },
+    { name: 'ΕΡΑΣΠΟΡ', url: 'http://radiostreaming.ert.gr/ert-erasport' },
+    { name: 'SPORT FM', url: 'http://www.gointernet.gr:8005/' },
+    { name: 'ΜΕΛΩΔΙΑ', url: 'https://stream.rcs.revma.com/melodia992' },
+    { name: 'ΔΕΥΤΕΡΟ', url: 'http://radiostreaming.ert.gr/ert-deftero' },
+    { name: 'KISS FM', url: 'https://s6.onweb.gr:7029/' },
+    { name: 'MANCODE', url: 'https://sheepfish.radioca.st/stream' },
+];
+
 SOCCER = {
     API_URL: 'https://v3.football.api-sports.io/teams?league=197&season=2023',
 
@@ -29,6 +40,7 @@ WEATHER = {
 export default {
     CRYPTO,
     MISSION,
+    RADIOSTATIONS,
     SOCCER,
     WEATHER,
 };
