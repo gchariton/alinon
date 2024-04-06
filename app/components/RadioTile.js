@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import LottieView from 'lottie-react-native';
+// import LottieView from 'lottie-react-native';
 
 import handlePlayPause from '../functions/handlePlayPause';
 import colors from '../config/colors';
@@ -27,7 +27,7 @@ const RadioTile = ({ station }) => {
                 <View
                     style={{ flex: 1, justifyContent: 'center', width: '100%' }}
                 >
-                    <LottieView
+                    {/* <LottieView
                         source={require('../json/dotsLoadingLottie.json')}
                         autoPlay={true}
                         loop
@@ -36,7 +36,7 @@ const RadioTile = ({ station }) => {
                             height: '100%',
                             backgroundColor: 'gray',
                         }}
-                    />
+                    /> */}
                     {isBuffering && (
                         <Text style={styles.bufferingText}>buffering...</Text>
                     )}
