@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     text: {
         color: colors.secondary,
         fontFamily: 'monospace',
+        fontWeight: 'bold',
         fontSize: 18,
     },
 

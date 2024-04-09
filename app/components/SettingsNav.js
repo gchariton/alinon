@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SettingsScreen from '../screens/SettingsScreen';
 import NewsSettingsScreen from '../screens/NewsSettingsScreen';
+import SoccerScreen from '../screens/SoccerScreen';
 import AboutScreen from '../screens/AboutScreen';
 
 import colors from '../config/colors';
@@ -27,6 +28,14 @@ function SettingsNav({}) {
                 options={{
                     ...headerOptions,
                     title: 'News',
+                }}
+            />
+            <Stack.Screen
+                name='SoccerScreen'
+                component={SoccerScreen}
+                options={{
+                    ...headerOptions,
+                    title: 'Soccer',
                 }}
             />
             <Stack.Screen

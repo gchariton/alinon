@@ -8,7 +8,6 @@ import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
 import RadioScreen from '../screens/RadioScreen';
 import CryptoScreen from '../screens/CryptoScreen';
-import SoccerScreen from '../screens/SoccerScreen';
 
 import SettingsNav from './SettingsNav';
 
@@ -133,39 +132,18 @@ const BottomBarNav = () => (
                 }}
             />
             <Tab.Screen
-                name='Soccer'
-                component={SoccerScreen}
-                options={{
-                    tabBarIcon: ({ color, size }) => (
-                        <TabIcon name='soccer' color={color} size={size} />
-                    ),
-                    ...screenOptions,
-                    headerLeft: () => {
-                        return (
-                            <View style={{ marginLeft: 20 }}>
-                                <TabIcon
-                                    name='soccer'
-                                    color={colors.yellow}
-                                    size={24}
-                                />
-                            </View>
-                        );
-                    },
-                }}
-            />
-            <Tab.Screen
-                name='Settings'
+                name='More'
                 component={SettingsNav}
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <TabIcon name='tools' color={color} size={size} />
+                        <TabIcon name='dots-square' color={color} size={size} />
                     ),
                     ...screenOptions,
                     headerLeft: () => {
                         return (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon
-                                    name='tools'
+                                    name='dots-square'
                                     color={colors.yellow}
                                     size={24}
                                 />
