@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-// import LottieView from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 
 import handlePlayPause from '../functions/handlePlayPause';
 import colors from '../config/colors';
@@ -25,20 +25,20 @@ const RadioTile = ({ station }) => {
                     <Text style={styles.text}>{station.name}</Text>
                 </View>
                 <View
-                    style={{ flex: 1, justifyContent: 'center', width: '100%' }}
+                    style={{
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center',
+                        width: '100%',
+                    }}
                 >
-                    {/* <LottieView
-                        source={require('../json/dotsLoadingLottie.json')}
-                        autoPlay={true}
-                        loop
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            backgroundColor: 'gray',
-                        }}
-                    /> */}
-                    {isBuffering && (
-                        <Text style={styles.bufferingText}>buffering...</Text>
+                    {isBuffering && !isPlaying && (
+                        <LottieView
+                            source={require('../json/dotsLoadingLottie.json')}
+                            autoPlay={true}
+                            loop={true}
+                            style={styles.loading}
+                        />
                     )}
                 </View>
             </View>
@@ -100,6 +100,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 15,
         padding: 10,
+        width: '100%',
+    },
+    loading: {
+        height: 300,
         width: '100%',
     },
     titleBox: {
