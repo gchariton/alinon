@@ -23,7 +23,7 @@ function AboutScreen({}) {
                 />
             </View>
             <View style={styles.container}>
-                <Text style={styles.text}>1.2024.0401</Text>
+                <Text style={styles.text}>2.0</Text>
             </View>
             <View style={styles.attention}>
                 <Text style={styles.text}>

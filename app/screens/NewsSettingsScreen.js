@@ -7,11 +7,13 @@ import colors from '../config/colors';
 import feed from '../config/feed';
 
 function NewsSettingsScreen({}) {
+    const sortedFeed = [...feed.news].sort();
+
     return (
         <Screen style={styles.container}>
             <Text style={styles.text}>Current news feed sources:</Text>
             <View>
-                {feed.news.map((item) => (
+                {sortedFeed.map((item) => (
                     <FeedTile key={item} source={item} />
                 ))}
             </View>

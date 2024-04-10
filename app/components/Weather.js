@@ -57,46 +57,67 @@ const Weather = () => {
         if (weatherData) {
             return (
                 <>
-                    <Text style={styles.weatherText}>
-                        temp now:{' '}
-                        <Text style={styles.weatherValues}>
-                            {weatherData.current.temperature_2m}˚C
-                        </Text>
+                    <Text style={styles.temperatureText}>
+                        {weatherData.current.temperature_2m}˚C
                     </Text>
-                    <Text style={styles.weatherText}>
-                        humidity:{' '}
-                        <Text style={styles.weatherValues}>
-                            {weatherData.current.relative_humidity_2m}%
-                        </Text>
+
+                    <Text style={styles.weatherValues}>
+                        <Text style={styles.weatherText}>RIGHT NOW </Text>
+                        {weatherData.current.relative_humidity_2m}%{' '}
+                        <Text style={styles.weatherText}>HUMIDITY</Text>
                     </Text>
+
                     <Text></Text>
-                    <Text style={styles.weatherText}>
-                        max today:{' '}
-                        <Text style={styles.weatherValues}>
-                            {Math.max(...weatherData.daily.temperature_2m_max)}
-                            ˚C
-                        </Text>
-                    </Text>
-                    <Text style={styles.weatherText}>
-                        min today:{' '}
-                        <Text style={styles.weatherValues}>
-                            {Math.min(...weatherData.daily.temperature_2m_min)}
-                            ˚C
-                        </Text>
-                    </Text>
-                    <Text></Text>
-                    <Text style={styles.weatherText}>
-                        sunrise:{' '}
-                        <Text style={styles.weatherValues}>
-                            {weatherData.daily.sunrise[0].substring(11, 16)}
-                        </Text>
-                    </Text>
-                    <Text style={styles.weatherText}>
-                        sunset:{' '}
-                        <Text style={styles.weatherValues}>
-                            {weatherData.daily.sunset[0].substring(11, 16)}
-                        </Text>
-                    </Text>
+
+                    <View style={styles.line}>
+                        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                            <Text style={styles.weatherText}>TODAY MAX</Text>
+                        </View>
+                        <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                            <Text style={styles.weatherValues}>
+                                {Math.max(
+                                    ...weatherData.daily.temperature_2m_max
+                                )}
+                                ˚C
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.line}>
+                        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                            <Text style={styles.weatherText}>TODAY MIN</Text>
+                        </View>
+                        <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                            <Text style={styles.weatherValues}>
+                                {Math.min(
+                                    ...weatherData.daily.temperature_2m_min
+                                )}
+                                ˚C
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.line}>
+                        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                            <Text style={styles.weatherText}>SUNRIZE</Text>
+                        </View>
+                        <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                            <Text style={styles.weatherValues}>
+                                {weatherData.daily.sunrise[0].substring(11, 16)}
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.line}>
+                        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                            <Text style={styles.weatherText}>SUNSET</Text>
+                        </View>
+                        <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                            <Text style={styles.weatherValues}>
+                                {weatherData.daily.sunset[0].substring(11, 16)}
+                            </Text>
+                        </View>
+                    </View>
                 </>
             );
         }
@@ -104,69 +125,72 @@ const Weather = () => {
     }, [weatherData]);
 
     return (
-        <View style={styles.weatherContainer}>
-            <View style={styles.weatherCard}>
-                <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity onPress={handleWeather}>
-                        <MaterialCommunityIcons
-                            name={'google-maps'}
-                            color={colors.green}
-                            size={90}
-                        />
-                    </TouchableOpacity>
-                    {currentAddress && (
-                        <>
-                            <Text style={styles.address}>
-                                {currentAddress.city}
-                            </Text>
-                            <Text style={styles.address}>
-                                {currentAddress.country}
-                            </Text>
-                        </>
-                    )}
-                </View>
-                <View style={styles.weatherInfoContainer}>{weatherInfo}</View>
+        <View>
+            <View style={styles.location}>
+                <TouchableOpacity onPress={handleWeather}>
+                    <MaterialCommunityIcons
+                        name={'google-maps'}
+                        color={colors.green}
+                        size={90}
+                    />
+                </TouchableOpacity>
+                {currentAddress && (
+                    <>
+                        <Text style={styles.locationText}>
+                            {currentAddress.city}
+                        </Text>
+                        <Text style={styles.locationText}>
+                            {currentAddress.country}
+                        </Text>
+                    </>
+                )}
             </View>
+            <View style={styles.info}>{weatherInfo}</View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    address: {
+    info: {
+        alignItems: 'center',
+        flex: 2,
+        justifyContent: 'flex-start',
+    },
+    line: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+
+        width: '100%',
+    },
+    location: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    locationText: {
         color: colors.green,
         fontFamily: 'monospace',
         fontSize: 14,
         fontWeight: 'bold',
         padding: 3,
     },
-    weatherContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-    },
-    weatherCard: {
-        backgroundColor: colors.secondary,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: 'gray',
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+    temperatureText: {
+        color: colors.yellow,
+        fontFamily: 'monospace',
+        fontSize: 50,
+        fontWeight: 'bold',
         padding: 10,
-        width: '100%',
-    },
-    weatherInfoContainer: {
-        margin: 5,
-        alignItems: 'flex-start',
     },
     weatherText: {
         fontFamily: 'monospace',
-        color: colors.blue,
+        fontWeight: 'bold',
+        color: 'gray',
+        padding: 5,
     },
     weatherValues: {
         fontFamily: 'monospace',
         color: colors.yellow,
+        padding: 5,
     },
 });
 

@@ -7,6 +7,7 @@ import SoccerScreen from '../screens/SoccerScreen';
 import AboutScreen from '../screens/AboutScreen';
 
 import colors from '../config/colors';
+import WeatherScreen from '../screens/WeatherScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,14 @@ function SettingsNav({}) {
                 options={{
                     ...headerOptions,
                     title: 'News',
+                }}
+            />
+            <Stack.Screen
+                name='WeatherScreen'
+                component={WeatherScreen}
+                options={{
+                    ...headerOptions,
+                    title: 'Weather',
                 }}
             />
             <Stack.Screen
