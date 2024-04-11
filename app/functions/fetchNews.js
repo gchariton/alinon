@@ -12,7 +12,7 @@ export const fetchNews = async (
         const fetchRequests = feed.news.map(async (url) => {
             const response = await axios.get(url);
             const parsed = await parse(response.data);
-            return parsed.items.slice(0, 25);
+            return parsed.items.slice(0, 20);
         });
         const results = await Promise.all(fetchRequests);
         const mergedFeed = results

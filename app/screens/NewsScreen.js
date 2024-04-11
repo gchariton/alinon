@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
+    FlatList,
     RefreshControl,
-    ScrollView,
     Share,
     StyleSheet,
     TouchableOpacity,
@@ -28,11 +28,11 @@ function NewsScreen() {
     }, []);
 
     const fetchData = async () => {
-        setIsProgressHidden(false); // Show progress circle while fetching data
+        setIsProgressHidden(false);
         try {
             await fetchNews(setSortedFeed, setRefreshing);
         } finally {
-            setIsProgressHidden(true); // Hide progress circle when fetching is done
+            setIsProgressHidden(true);
         }
     };
 
@@ -52,7 +52,7 @@ function NewsScreen() {
     };
 
     const onPressScrollToTop = () => {
-        scrollRef.current?.scrollTo({ y: 0, animated: true });
+        scrollRef.current?.scrollToOffset({ offset: 0, animated: true });
     };
 
     return (
@@ -66,7 +66,12 @@ function NewsScreen() {
                     />
                 </View>
             )}
-            <ScrollView
+            <FlatList
+                data={sortedFeed}
+                onLayout={() => {
+                    // Make sure FlatList has been laid out before setting the ref
+                    scrollRef.current = scrollRef.current || scrollRef;
+                }}
                 ref={scrollRef}
                 style={styles.container}
                 refreshControl={
@@ -78,15 +83,14 @@ function NewsScreen() {
                         size={'large'}
                     />
                 }
-            >
-                {sortedFeed.map((feeditem) => (
+                renderItem={({ item, index }) => (
                     <NewsTile
-                        key={feeditem.id}
-                        feed={feeditem}
+                        key={item.id + index}
+                        feed={item}
                         renderRightActions={() => (
                             <View style={styles.swipebox}>
                                 <TouchableOpacity
-                                    onPress={() => handleShare(feeditem)}
+                                    onPress={() => handleShare(item)}
                                 >
                                     <MaterialCommunityIcons
                                         name={'share'}
@@ -97,8 +101,9 @@ function NewsScreen() {
                             </View>
                         )}
                     />
-                ))}
-            </ScrollView>
+                )}
+                keyExtractor={(item, index) => item.id + index}
+            />
             <View style={styles.upbutton}>
                 <TouchableOpacity onPress={onPressScrollToTop}>
                     <MaterialCommunityIcons

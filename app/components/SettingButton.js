@@ -14,7 +14,7 @@ function SettingButton({ text, onPress }) {
                 <TouchableOpacity onPress={onPress}>
                     <MaterialCommunityIcons
                         name={'arrow-right'}
-                        color={colors.secondary}
+                        color={colors.blue}
                         size={30}
                     />
                 </TouchableOpacity>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     },
     iconbox: {
         alignItems: 'center',
-        backgroundColor: colors.blue,
+        backgroundColor: colors.secondary,
         justifyContent: 'center',
         padding: 10,
         width: '15%',

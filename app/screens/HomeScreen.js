@@ -13,7 +13,7 @@ const logoImage = require('../assets/logo.png');
 const HomeScreen = ({ navigation }) => {
     const translateY = useRef(new Animated.Value(-500)).current;
     const isFocused = useIsFocused();
-    const [mission, setMission] = useState('...');
+    const [mission, setMission] = useState('');
 
     const fetchMissionData = useCallback(async () => {
         const data = await fetchMission();
@@ -34,31 +34,41 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <Screen>
-            <View style={styles.container}>
-                <Animated.Image
-                    style={[styles.logo, { transform: [{ translateY }] }]}
-                    source={logoImage}
-                />
-                <TextHyperlink
-                    style={styles.text}
-                    url='http://icloud.gr'
-                    text='Hello George'
-                />
-                {mission && (
-                    <Text style={styles.text}>
-                        Let's {String(mission).toLowerCase()}!
-                    </Text>
-                )}
+            <View>
+                <View style={styles.containerTop}>
+                    <Animated.Image
+                        style={[styles.logo, { transform: [{ translateY }] }]}
+                        source={logoImage}
+                    />
+                    <TextHyperlink
+                        style={styles.text}
+                        url='http://icloud.gr'
+                        text='Hello George!'
+                    />
+                </View>
+                <View style={styles.containerBottom}>
+                    {mission !== '' && (
+                        <Text style={[styles.text, { color: 'gray' }]}>
+                            Today let's {String(mission).toLowerCase()}!
+                        </Text>
+                    )}
+                </View>
             </View>
         </Screen>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    containerBottom: {
         alignItems: 'center',
         flex: 1,
         justifyContent: 'center',
+        width: '80%',
+    },
+    containerTop: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'flex-end',
     },
     logo: {
         height: 100,
@@ -69,6 +79,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontFamily: 'monospace',
         margin: 5,
+        textAlign: 'center',
     },
 });
 

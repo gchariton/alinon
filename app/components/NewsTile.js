@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     },
     source: {
         fontFamily: 'monospace',
-        color: colors.green,
+        color: 'gray',
     },
     title: {
         color: colors.white,
