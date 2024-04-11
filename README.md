@@ -1,6 +1,6 @@
 ## alinon
 
-An all-in-one app for personal and testing purposes only. Use it at your own risk.
+An ${\color{red}al}$l-in-one app for personal and testing purposes only. Use it at your own risk.
 
 ## Motivation
 
