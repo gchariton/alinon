@@ -55,6 +55,21 @@ function NewsScreen() {
         scrollRef.current?.scrollToOffset({ offset: 0, animated: true });
     };
 
+    const renderRightActions = useCallback(
+        () => (
+            <View style={styles.swipebox}>
+                <TouchableOpacity onPress={() => handleShare(item)}>
+                    <MaterialCommunityIcons
+                        name={'share'}
+                        color={colors.blue}
+                        size={36}
+                    />
+                </TouchableOpacity>
+            </View>
+        ),
+        []
+    );
+
     return (
         <Screen>
             {!isProgressHidden && (
@@ -69,7 +84,6 @@ function NewsScreen() {
             <FlatList
                 data={sortedFeed}
                 onLayout={() => {
-                    // Make sure FlatList has been laid out before setting the ref
                     scrollRef.current = scrollRef.current || scrollRef;
                 }}
                 ref={scrollRef}
@@ -85,21 +99,21 @@ function NewsScreen() {
                 }
                 renderItem={({ item, index }) => (
                     <NewsTile
-                        key={item.id + index}
                         feed={item}
-                        renderRightActions={() => (
-                            <View style={styles.swipebox}>
-                                <TouchableOpacity
-                                    onPress={() => handleShare(item)}
-                                >
-                                    <MaterialCommunityIcons
-                                        name={'share'}
-                                        color={colors.blue}
-                                        size={36}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                        )}
+                        formattedDate={new Date(item.published)
+                            .toLocaleString('el-GR', {
+                                hour12: false,
+                                timeZone: 'Europe/Athens',
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            })
+                            .replace(/\//g, '.')
+                            .replace(',', '')
+                            .substring(0, 16)}
+                        renderRightActions={renderRightActions}
                     />
                 )}
                 keyExtractor={(item, index) => item.id + index}

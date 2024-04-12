@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import TextHyperlink from './TextHyperlink';
@@ -8,24 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../config/colors';
 import getDomain from '../functions/getDomain';
 
-function NewsTile({ feed, renderRightActions }) {
-    const publishedDate = new Date(feed.published);
-    const formattedDate = useMemo(() => {
-        const publishedDate = new Date(feed.published);
-        return publishedDate
-            .toLocaleString('el-GR', {
-                hour12: false,
-                timeZone: 'Europe/Athens',
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-            })
-            .replace(/\//g, '.')
-            .replace(',', '');
-    }, [feed.published]);
-
+const NewsTile = React.memo(({ feed, formattedDate, renderRightActions }) => {
     return (
         <Swipeable friction={1} renderRightActions={renderRightActions}>
             <View style={styles.container}>
@@ -35,9 +18,7 @@ function NewsTile({ feed, renderRightActions }) {
                     url={String(feed.id)}
                 />
                 <View style={styles.meta}>
-                    <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
+                    <View style={styles.dateContainer}>
                         <MaterialCommunityIcons
                             name={'clock-outline'}
                             color={colors.blue}
@@ -54,7 +35,7 @@ function NewsTile({ feed, renderRightActions }) {
             </View>
         </Swipeable>
     );
-}
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -65,6 +46,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10,
         padding: 10,
+    },
+    dateContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
     },
     meta: {
         flexDirection: 'row',
