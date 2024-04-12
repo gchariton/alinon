@@ -1,4 +1,4 @@
-## alinon
+## :bulb: alinon
 
 An all-in-one (al-in-on) app for personal and testing purposes only.
 
