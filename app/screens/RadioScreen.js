@@ -8,7 +8,7 @@ import constants from '../config/constants';
 const RadioScreen = () => {
     return (
         <Screen>
-            <ScrollView>
+            <ScrollView style={{ width: '100%' }}>
                 <View style={styles.container}>
                     {constants.RADIOSTATIONS.map((station, index) => (
                         <RadioTile key={index} station={station} />
