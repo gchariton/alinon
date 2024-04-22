@@ -1,24 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Camera } from 'expo-camera';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
+import { CameraView, Camera } from 'expo-camera/next';
+
 import Screen from './Screen';
+import TextHyperlink from '../components/TextHyperlink';
 import colors from '../config/colors';
 
 function ScannerScreen() {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
-    const [scannedData, setScannedData] = useState(null);
+    const [result, setResult] = useState(null);
 
     useEffect(() => {
-        (async () => {
-            const { status } = await Camera.requestCameraPermissionsAsync(); // Updated method
+        const getCameraPermissions = async () => {
+            const { status } = await Camera.requestCameraPermissionsAsync();
             setHasPermission(status === 'granted');
-        })();
+        };
+
+        getCameraPermissions();
     }, []);
 
-    const handleBarCodeScanned = ({ type, data }) => {
+    const handleBarCodeScanned = ({ data }) => {
         setScanned(true);
-        setScannedData(data);
+        setResult(data);
+    };
+
+    const handleResult = () => {
+        if (!result) return null;
+
+        if (result.startsWith('http')) {
+            return (
+                <TextHyperlink style={styles.link} url={result} text={result} />
+            );
+        } else {
+            return <Text style={styles.text}>{result}</Text>;
+        }
     };
 
     if (hasPermission === null) {
@@ -30,19 +46,16 @@ function ScannerScreen() {
 
     return (
         <Screen>
-            <View style={styles.container}>
-                <Camera
-                    style={styles.camera}
-                    type={Camera.Constants.Type.back}
-                    onBarCodeScanned={
+            <View style={styles.camerabox}>
+                <CameraView
+                    onBarcodeScanned={
                         scanned ? undefined : handleBarCodeScanned
                     }
+                    barcodeScannerSettings={{
+                        barcodeTypes: ['qr', 'pdf417'],
+                    }}
+                    style={StyleSheet.absoluteFillObject}
                 />
-                {scanned && (
-                    <Text style={styles.text}>
-                        Scanned QR Code: {scannedData}
-                    </Text>
-                )}
                 {scanned && (
                     <Button
                         title={'Tap to Scan Again'}
@@ -50,25 +63,39 @@ function ScannerScreen() {
                     />
                 )}
             </View>
+            <View style={styles.textbox}>
+                <Text style={styles.text} numberOfLines={5}>
+                    {handleResult()}
+                </Text>
+            </View>
         </Screen>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    camerabox: {
         flex: 1,
-        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
-    },
-    camera: {
-        height: '100%',
-        flex: 1,
         width: '100%',
+    },
+    link: {
+        color: colors.blue,
+        fontFamily: 'monospace',
+        textDecorationLine: 'underline',
     },
     text: {
         color: colors.white,
+        flexWrap: 'wrap',
         fontFamily: 'monospace',
+        padding: 5,
+    },
+    textbox: {
+        borderTopColor: colors.blue,
+        borderTopWidth: 3,
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        width: '100%',
     },
 });
 
