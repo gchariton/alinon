@@ -16,7 +16,7 @@ As well as bugs lol.
 
 ## :ant: Known bugs
 
-//
+// ...
 
 ## :camera: Screenshots
 

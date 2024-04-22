@@ -33,12 +33,14 @@ const RadioTile = ({ station }) => {
                     }}
                 >
                     {isBuffering && !isPlaying && (
-                        <LottieView
-                            source={require('../json/dotsLoadingLottie.json')}
-                            autoPlay={true}
-                            loop={true}
-                            style={styles.loading}
-                        />
+                        <View style={styles.loading}>
+                            <LottieView
+                                source={require('../json/dotsLoadingLottie.json')}
+                                autoPlay={true}
+                                loop={true}
+                                style={{ height: 300, width: '100%' }}
+                            />
+                        </View>
                     )}
                 </View>
             </View>
@@ -74,11 +76,6 @@ const RadioTile = ({ station }) => {
 };
 
 const styles = StyleSheet.create({
-    bufferingText: {
-        color: colors.yellow,
-        fontFamily: 'monospace',
-        padding: 5,
-    },
     button: {
         backgroundColor: colors.blue,
         borderTopLeftRadius: 10,
@@ -103,7 +100,10 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     loading: {
-        height: 300,
+        alignItems: 'center',
+        height: '100%',
+        justifyContent: 'center',
+        overflow: 'hidden',
         width: '100%',
     },
     titleBox: {

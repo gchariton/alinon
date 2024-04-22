@@ -46,28 +46,7 @@ const screenOptions = {
 
 const BottomBarNav = () => (
     <NavigationContainer>
-        <Tab.Navigator screenOptions={tabBarOptions}>
-            <Tab.Screen
-                name='Home'
-                component={HomeScreen}
-                options={{
-                    tabBarIcon: ({ color, size }) => (
-                        <TabIcon name='home' color={color} size={size} />
-                    ),
-                    ...screenOptions,
-                    headerLeft: () => {
-                        return (
-                            <View style={{ marginLeft: 20 }}>
-                                <TabIcon
-                                    name='home'
-                                    color={colors.yellow}
-                                    size={24}
-                                />
-                            </View>
-                        );
-                    },
-                }}
-            />
+        <Tab.Navigator screenOptions={tabBarOptions} initialRouteName='Home'>
             <Tab.Screen
                 name='News'
                 component={NewsScreen}
@@ -102,6 +81,27 @@ const BottomBarNav = () => (
                             <View style={{ marginLeft: 20 }}>
                                 <TabIcon
                                     name='radio'
+                                    color={colors.yellow}
+                                    size={24}
+                                />
+                            </View>
+                        );
+                    },
+                }}
+            />
+            <Tab.Screen
+                name='Home'
+                component={HomeScreen}
+                options={{
+                    tabBarIcon: () => (
+                        <TabIcon name='home' color={'green'} size={40} />
+                    ),
+                    ...screenOptions,
+                    headerLeft: () => {
+                        return (
+                            <View style={{ marginLeft: 20 }}>
+                                <TabIcon
+                                    name='home'
                                     color={colors.yellow}
                                     size={24}
                                 />
