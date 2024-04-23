@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { CameraView, Camera } from 'expo-camera/next';
 
 import Screen from './Screen';
@@ -21,8 +21,10 @@ function ScannerScreen() {
     }, []);
 
     const handleBarCodeScanned = ({ data }) => {
-        setScanned(true);
-        setResult(data);
+        if (data) {
+            setScanned(true);
+            setResult(data);
+        }
     };
 
     const handleResult = () => {
@@ -30,10 +32,14 @@ function ScannerScreen() {
 
         if (result.startsWith('http')) {
             return (
-                <TextHyperlink style={styles.link} url={result} text={result} />
+                <TextHyperlink
+                    style={styles.resultlink}
+                    text={result}
+                    url={result}
+                />
             );
         } else {
-            return <Text style={styles.text}>{result}</Text>;
+            return <Text style={styles.resulttext}>{result}</Text>;
         }
     };
 
@@ -63,11 +69,7 @@ function ScannerScreen() {
                     />
                 )}
             </View>
-            <View style={styles.textbox}>
-                <Text style={styles.text} numberOfLines={5}>
-                    {handleResult()}
-                </Text>
-            </View>
+            <View style={styles.textbox}>{handleResult()}</View>
         </Screen>
     );
 }
@@ -78,16 +80,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
     },
-    link: {
+    resultlink: {
         color: colors.blue,
+        flexWrap: 'wrap',
         fontFamily: 'monospace',
+        padding: 20,
         textDecorationLine: 'underline',
     },
-    text: {
+    resulttext: {
         color: colors.white,
         flexWrap: 'wrap',
         fontFamily: 'monospace',
-        padding: 5,
+        padding: 20,
     },
     textbox: {
         borderTopColor: colors.blue,
