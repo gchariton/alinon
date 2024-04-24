@@ -58,7 +58,7 @@ function ScannerScreen() {
                         scanned ? undefined : handleBarCodeScanned
                     }
                     barcodeScannerSettings={{
-                        barcodeTypes: ['qr', 'pdf417'],
+                        barcodeTypes: ['ean8', 'ean13', 'qr', 'pdf417'],
                     }}
                     style={StyleSheet.absoluteFillObject}
                 />

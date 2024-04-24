@@ -5,36 +5,29 @@ import { useIsFocused } from '@react-navigation/native';
 import TextHyperlink from '../components/TextHyperlink';
 
 import Screen from './Screen';
+import LoginScreen from './LoginScreen';
 import colors from '../config/colors';
-import fetchMission from '../functions/fetchMission';
 
 const logoImage = require('../assets/logo.png');
 
 const HomeScreen = ({ navigation }) => {
     const translateY = useRef(new Animated.Value(-500)).current;
     const isFocused = useIsFocused();
-    const [mission, setMission] = useState('');
-
-    const fetchMissionData = useCallback(async () => {
-        const data = await fetchMission();
-        setMission(data.activity);
-    }, []);
 
     useEffect(() => {
         if (isFocused) {
-            translateY.setValue(-500);
+            translateY.setValue(-300);
             Animated.timing(translateY, {
                 toValue: 0,
                 duration: 3000,
                 useNativeDriver: true,
             }).start();
-            fetchMissionData();
         }
     }, [isFocused]);
 
     return (
         <Screen>
-            <View>
+            <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <Animated.Image
                         style={[styles.logo, { transform: [{ translateY }] }]}
@@ -47,11 +40,7 @@ const HomeScreen = ({ navigation }) => {
                     />
                 </View>
                 <View style={styles.containerBottom}>
-                    {mission !== '' && (
-                        <Text style={[styles.text, { color: 'gray' }]}>
-                            Today let's {String(mission).toLowerCase()}!
-                        </Text>
-                    )}
+                    <LoginScreen />
                 </View>
             </View>
         </Screen>
@@ -59,11 +48,16 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    containerBottom: {
+    container: {
         alignItems: 'center',
         flex: 1,
+        width: '100%',
+    },
+    containerBottom: {
+        alignItems: 'center',
+        flex: 2,
         justifyContent: 'center',
-        width: '80%',
+        width: '90%',
     },
     containerTop: {
         alignItems: 'center',

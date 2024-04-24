@@ -34,7 +34,8 @@
     "react-native-svg": "14.1.0",
     "react-spinners": "^0.13.8",
     "rss-parser": "^3.13.0",
-    "expo-barcode-scanner": "~12.9.3"
+    "expo-barcode-scanner": "~12.9.3",
+    "expo-secure-store": "~12.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
