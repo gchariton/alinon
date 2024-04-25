@@ -1,12 +1,15 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import BottomBarNav from './app/components/BottomBarNav';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomBarNav />
+            <NavigationContainer>
+                <BottomBarNav />
+            </NavigationContainer>
         </GestureHandlerRootView>
     );
 }

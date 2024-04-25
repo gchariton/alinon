@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as SecureStore from 'expo-secure-store';
 
 import HomeScreen from '../screens/HomeScreen';
 import NewsScreen from '../screens/NewsScreen';
@@ -44,9 +45,28 @@ const screenOptions = {
     },
 };
 
-const BottomBarNav = () => (
-    <NavigationContainer>
-        <Tab.Navigator screenOptions={tabBarOptions} initialRouteName='Home'>
+const BottomBarNav = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        checkLoginStatus();
+    }, [isFocused]);
+
+    const checkLoginStatus = async () => {
+        try {
+            const userToken = await SecureStore.getItemAsync('userToken');
+            console.log(userToken);
+            setIsLoggedIn(!!userToken);
+        } catch (error) {
+            console.error('Error checking login status:', error);
+        } finally {
+            //
+        }
+    };
+
+    return (
+        <Tab.Navigator screenOptions={tabBarOptions} initialRouteName={'Home'}>
             <Tab.Screen
                 name='News'
                 component={NewsScreen}
@@ -67,6 +87,14 @@ const BottomBarNav = () => (
                         );
                     },
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        if (!isLoggedIn) {
+                            e.preventDefault();
+                            navigation.navigate('Home');
+                        }
+                    },
+                })}
             />
             <Tab.Screen
                 name='Radio'
@@ -88,6 +116,14 @@ const BottomBarNav = () => (
                         );
                     },
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        if (!isLoggedIn) {
+                            e.preventDefault();
+                            navigation.navigate('Home');
+                        }
+                    },
+                })}
             />
             <Tab.Screen
                 name='Home'
@@ -130,6 +166,14 @@ const BottomBarNav = () => (
                         );
                     },
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        if (!isLoggedIn) {
+                            e.preventDefault();
+                            navigation.navigate('Home');
+                        }
+                    },
+                })}
             />
             <Tab.Screen
                 name='More'
@@ -151,9 +195,17 @@ const BottomBarNav = () => (
                         );
                     },
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        if (!isLoggedIn) {
+                            e.preventDefault();
+                            navigation.navigate('Home');
+                        }
+                    },
+                })}
             />
         </Tab.Navigator>
-    </NavigationContainer>
-);
+    );
+};
 
 export default BottomBarNav;

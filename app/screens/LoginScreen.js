@@ -16,6 +16,7 @@ function LoginScreen({}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const userRef = useRef(null);
     const passRef = useRef(null);
 
@@ -25,60 +26,83 @@ function LoginScreen({}) {
     };
 
     const authenticateUser = async (user, pass) => {
-        const password = await getPassword(user);
-        if (password === pass) {
-            console.log('Authentication successful');
-            userRef.current.clear();
-            passRef.current.clear();
-            return true;
+        if (user !== '') {
+            const password = await getPassword(user);
+
+            if (password === pass) {
+                console.log('Authentication successful');
+                setIsLoggedIn(true);
+                return true;
+            } else {
+                console.log('Authentication failed');
+                userRef.current.clear();
+                passRef.current.clear();
+                setUser('');
+                setPass('');
+                return false;
+            }
         } else {
-            console.log('Authentication failed');
-            userRef.current.clear();
-            passRef.current.clear();
+            console.log('Username of Password fields cannot be empty');
             return false;
         }
     };
 
-    const handleSignupSuccess = () => {
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setUser('');
+        setPass('');
+    };
+
+    const handleModalVisibility = () => {
         setModalVisible(false);
     };
 
     return (
         <View style={styles.container}>
-            <Modal
-                style={styles.modal}
-                visible={modalVisible}
-                animationType='slide'
-            >
-                <View style={styles.modal}>
-                    <SignupScreen onSignupSuccess={handleSignupSuccess} />
+            <Modal visible={modalVisible} animationType='slide'>
+                <View style={styles.modalcontainer}>
+                    <View style={styles.modal}>
+                        <SignupScreen onClose={handleModalVisibility} />
+                    </View>
                 </View>
             </Modal>
 
-            <TextInput
-                style={styles.textinput}
-                onChangeText={setUser}
-                placeholder='user'
-                placeholderTextColor={'gray'}
-                ref={userRef}
-            />
-            <TextInput
-                style={styles.textinput}
-                onChangeText={setPass}
-                placeholder='pass'
-                placeholderTextColor={'gray'}
-                ref={passRef}
-            />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => authenticateUser(user, pass)}
-            >
-                <Text style={styles.text}>LOGIN</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Text></Text>
-                <Text style={styles.link}>Sign Up!</Text>
-            </TouchableOpacity>
+            {isLoggedIn ? (
+                <>
+                    <Text style={styles.text}>Welcome {user}!</Text>
+                    <TouchableOpacity onPress={handleLogout}>
+                        <Text style={styles.link}>LOGOUT</Text>
+                    </TouchableOpacity>
+                </>
+            ) : (
+                <>
+                    <TextInput
+                        style={styles.textinput}
+                        onChangeText={setUser}
+                        placeholder='user'
+                        placeholderTextColor={'gray'}
+                        ref={userRef}
+                    />
+                    <TextInput
+                        style={styles.textinput}
+                        onChangeText={setPass}
+                        placeholder='pass'
+                        placeholderTextColor={'gray'}
+                        ref={passRef}
+                        secureTextEntry={true}
+                    />
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => authenticateUser(user, pass)}
+                    >
+                        <Text style={styles.text}>LOGIN</Text>
+                    </TouchableOpacity>
+                    <Text></Text>
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
+                        <Text style={styles.link}>Sign Up!</Text>
+                    </TouchableOpacity>
+                </>
+            )}
         </View>
     );
 }
@@ -105,6 +129,17 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     modal: {
+        alignSelf: 'center',
+        borderColor: colors.blue,
+        borderWidth: 2,
+        backgroundColor: colors.secondary,
+        borderRadius: 10,
+        height: '80%',
+        justifyContent: 'center',
+        width: '90%',
+    },
+    modalcontainer: {
+        alignItems: 'center',
         backgroundColor: colors.primary,
         flex: 1,
         justifyContent: 'center',
@@ -112,6 +147,7 @@ const styles = StyleSheet.create({
     text: {
         color: colors.white,
         fontFamily: 'monospace',
+        fontWeight: 'bold',
     },
     textinput: {
         color: colors.blue,
@@ -119,7 +155,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         fontFamily: 'monospace',
         margin: 10,
-        padding: 5,
+        padding: 10,
         width: '70%',
     },
 });
