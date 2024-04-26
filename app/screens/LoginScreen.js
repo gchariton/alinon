@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
 
 import SignupScreen from './SignupScreen';
 import colors from '../config/colors';
@@ -20,29 +20,44 @@ function LoginScreen({}) {
     const userRef = useRef(null);
     const passRef = useRef(null);
 
-    const getPassword = async (user) => {
-        const password = await SecureStore.getItemAsync(user);
-        return password;
-    };
-
     const authenticateUser = async (user, pass) => {
-        if (user !== '') {
-            const password = await getPassword(user);
+        if (user !== '' && pass !== '') {
+            try {
+                const response = await axios.post(
+                    'https://api-dev.laiki.eu/auth/local',
+                    {
+                        identifier: user,
+                        password: pass,
+                    },
+                    {
+                        headers: {
+                            Origin: 'https://wms-dev.laiki.eu',
+                        },
+                    }
+                );
 
-            if (password === pass) {
-                console.log('Authentication successful');
-                setIsLoggedIn(true);
-                return true;
-            } else {
-                console.log('Authentication failed');
-                userRef.current.clear();
-                passRef.current.clear();
-                setUser('');
-                setPass('');
+                if (response.status === 200) {
+                    console.log('Authentication successful');
+
+                    const jwtToken = response.data.jwt;
+                    console.log('JWT token:', jwtToken);
+
+                    setIsLoggedIn(true);
+                    return true;
+                } else {
+                    console.log('Authentication failed:', response.data);
+                    userRef.current.clear();
+                    passRef.current.clear();
+                    setUser('');
+                    setPass('');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error during authentication:', error);
                 return false;
             }
         } else {
-            console.log('Username of Password fields cannot be empty');
+            console.log('Username or Password fields cannot be empty');
             return false;
         }
     };

@@ -55,13 +55,12 @@ const BottomBarNav = () => {
 
     const checkLoginStatus = async () => {
         try {
-            const userToken = await SecureStore.getItemAsync('userToken');
-            console.log(userToken);
+            const userToken = await SecureStore.getItemAsync('qwerty');
             setIsLoggedIn(!!userToken);
+            return !!userToken;
         } catch (error) {
             console.error('Error checking login status:', error);
-        } finally {
-            //
+            return false; // or handle the error accordingly
         }
     };
 
@@ -89,10 +88,14 @@ const BottomBarNav = () => {
                 }}
                 listeners={({ navigation }) => ({
                     tabPress: (e) => {
-                        if (!isLoggedIn) {
-                            e.preventDefault();
-                            navigation.navigate('Home');
-                        }
+                        e.preventDefault();
+                        checkLoginStatus().then((isLoggedIn) => {
+                            if (!isLoggedIn) {
+                                navigation.navigate('Home');
+                            } else {
+                                navigation.navigate('News');
+                            }
+                        });
                     },
                 })}
             />
@@ -118,10 +121,14 @@ const BottomBarNav = () => {
                 }}
                 listeners={({ navigation }) => ({
                     tabPress: (e) => {
-                        if (!isLoggedIn) {
-                            e.preventDefault();
-                            navigation.navigate('Home');
-                        }
+                        e.preventDefault();
+                        checkLoginStatus().then((isLoggedIn) => {
+                            if (!isLoggedIn) {
+                                navigation.navigate('Home');
+                            } else {
+                                navigation.navigate('Radio');
+                            }
+                        });
                     },
                 })}
             />
@@ -168,10 +175,14 @@ const BottomBarNav = () => {
                 }}
                 listeners={({ navigation }) => ({
                     tabPress: (e) => {
-                        if (!isLoggedIn) {
-                            e.preventDefault();
-                            navigation.navigate('Home');
-                        }
+                        e.preventDefault();
+                        checkLoginStatus().then((isLoggedIn) => {
+                            if (!isLoggedIn) {
+                                navigation.navigate('Home');
+                            } else {
+                                navigation.navigate('Crypto');
+                            }
+                        });
                     },
                 })}
             />
@@ -197,10 +208,14 @@ const BottomBarNav = () => {
                 }}
                 listeners={({ navigation }) => ({
                     tabPress: (e) => {
-                        if (!isLoggedIn) {
-                            e.preventDefault();
-                            navigation.navigate('Home');
-                        }
+                        e.preventDefault();
+                        checkLoginStatus().then((isLoggedIn) => {
+                            if (!isLoggedIn) {
+                                navigation.navigate('Home');
+                            } else {
+                                navigation.navigate('More');
+                            }
+                        });
                     },
                 })}
             />
