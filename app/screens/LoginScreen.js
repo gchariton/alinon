@@ -7,10 +7,10 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import axios from 'axios';
 
 import SignupScreen from './SignupScreen';
 import colors from '../config/colors';
+import authenticateUser from '../functions/auth';
 
 function LoginScreen({}) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -19,48 +19,6 @@ function LoginScreen({}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const userRef = useRef(null);
     const passRef = useRef(null);
-
-    const authenticateUser = async (user, pass) => {
-        if (user !== '' && pass !== '') {
-            try {
-                const response = await axios.post(
-                    'https://api-dev.laiki.eu/auth/local',
-                    {
-                        identifier: user,
-                        password: pass,
-                    },
-                    {
-                        headers: {
-                            Origin: 'https://wms-dev.laiki.eu',
-                        },
-                    }
-                );
-
-                if (response.status === 200) {
-                    console.log('Authentication successful');
-
-                    const jwtToken = response.data.jwt;
-                    console.log('JWT token:', jwtToken);
-
-                    setIsLoggedIn(true);
-                    return true;
-                } else {
-                    console.log('Authentication failed:', response.data);
-                    userRef.current.clear();
-                    passRef.current.clear();
-                    setUser('');
-                    setPass('');
-                    return false;
-                }
-            } catch (error) {
-                console.error('Error during authentication:', error);
-                return false;
-            }
-        } else {
-            console.log('Username or Password fields cannot be empty');
-            return false;
-        }
-    };
 
     const handleLogout = () => {
         setIsLoggedIn(false);
@@ -108,7 +66,9 @@ function LoginScreen({}) {
                     />
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => authenticateUser(user, pass)}
+                        onPress={() =>
+                            authenticateUser(user, pass, setIsLoggedIn)
+                        }
                     >
                         <Text style={styles.text}>LOGIN</Text>
                     </TouchableOpacity>

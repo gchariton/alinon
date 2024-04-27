@@ -1,13 +1,14 @@
+AUTH = {
+    API_URL: 'https://api-dev.laiki.eu/auth/local',
+    ORIGIN: 'https://wms-dev.laiki.eu',
+};
+
 CRYPTO = {
     API_KEY: 'b0a5949f-b36c-479d-8cae-633c92223b01',
     API_URL:
         'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=200',
 
     COININFO: 'https://www.coingecko.com/en/coins/',
-};
-
-MISSION = {
-    API_URL: 'https://www.boredapi.com/api/activity',
 };
 
 const RADIOSTATIONS = [
@@ -38,8 +39,8 @@ WEATHER = {
 };
 
 export default {
+    AUTH,
     CRYPTO,
-    MISSION,
     RADIOSTATIONS,
     SOCCER,
     WEATHER,
