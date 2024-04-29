@@ -3,13 +3,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import BottomBarNav from './app/components/BottomBarNav';
+import { AuthProvider } from './app/auth/authContext';
 
 export default function App() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <NavigationContainer>
-                <BottomBarNav />
-            </NavigationContainer>
+            <AuthProvider>
+                <NavigationContainer>
+                    <BottomBarNav />
+                </NavigationContainer>
+            </AuthProvider>
         </GestureHandlerRootView>
     );
 }

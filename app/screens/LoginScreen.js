@@ -10,7 +10,7 @@ import {
 
 import SignupScreen from './SignupScreen';
 import colors from '../config/colors';
-import authenticateUser from '../functions/auth';
+import authenticateUser from '../auth/auth';
 
 function LoginScreen({}) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -28,6 +28,19 @@ function LoginScreen({}) {
 
     const handleModalVisibility = () => {
         setModalVisible(false);
+    };
+
+    const handleLogin = async () => {
+        try {
+            const success = await authenticateUser(user, pass);
+            if (success) {
+                setIsLoggedIn(true);
+            } else {
+                console.log('Login failed');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
     };
 
     return (
@@ -66,9 +79,7 @@ function LoginScreen({}) {
                     />
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() =>
-                            authenticateUser(user, pass, setIsLoggedIn)
-                        }
+                        onPress={handleLogin}
                     >
                         <Text style={styles.text}>LOGIN</Text>
                     </TouchableOpacity>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import constants from '../config/constants';
 
-const authenticateUser = async (user, pass, setIsLoggedIn) => {
+const authenticateUser = async (user, pass) => {
     if (user !== '' && pass !== '') {
         try {
             const response = await axios.post(
@@ -18,15 +18,11 @@ const authenticateUser = async (user, pass, setIsLoggedIn) => {
             );
 
             if (response.status === 200) {
-                setIsLoggedIn(true);
                 console.log('Authentication successful');
-
                 const jwtToken = response.data.jwt;
                 console.log('JWT token:', jwtToken);
-
                 return true;
             } else {
-                setIsLoggedIn(false);
                 console.log('Authentication failed:', response.data);
                 return false;
             }
