@@ -11,12 +11,13 @@ import {
 import SignupScreen from './SignupScreen';
 import colors from '../config/colors';
 import authenticateUser from '../auth/auth';
+import { useAuth } from '../auth/authContext';
 
 function LoginScreen({}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [user, setUser] = useState('');
     const [pass, setPass] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
     const userRef = useRef(null);
     const passRef = useRef(null);
 
