@@ -45,7 +45,8 @@ const screenOptions = {
 };
 
 const BottomBarNav = () => {
-    const { isLoggedIn } = useAuth();
+    //const { isLoggedIn } = useAuth();
+    const isLoggedIn = true;
 
     useEffect(() => {
         // Force re-render the component whenever isLoggedIn changes

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import { CameraView, Camera } from 'expo-camera/next';
+import { Camera } from 'expo-camera';
 
 import Screen from './Screen';
 import TextHyperlink from '../components/TextHyperlink';
@@ -13,7 +13,7 @@ function ScannerScreen() {
 
     useEffect(() => {
         const getCameraPermissions = async () => {
-            const { status } = await Camera.requestCameraPermissionsAsync();
+            const { status } = await Camera.requestPermissionsAsync();
             setHasPermission(status === 'granted');
         };
 
@@ -53,12 +53,17 @@ function ScannerScreen() {
     return (
         <Screen>
             <View style={styles.camerabox}>
-                <CameraView
-                    onBarcodeScanned={
+                <Camera
+                    onBarCodeScanned={
                         scanned ? undefined : handleBarCodeScanned
                     }
-                    barcodeScannerSettings={{
-                        barcodeTypes: ['ean8', 'ean13', 'qr', 'pdf417'],
+                    barCodeScannerSettings={{
+                        barCodeTypes: [
+                            Camera.Constants.BarCodeType.ean8,
+                            Camera.Constants.BarCodeType.ean13,
+                            Camera.Constants.BarCodeType.qr,
+                            Camera.Constants.BarCodeType.pdf417,
+                        ],
                     }}
                     style={StyleSheet.absoluteFillObject}
                 />
